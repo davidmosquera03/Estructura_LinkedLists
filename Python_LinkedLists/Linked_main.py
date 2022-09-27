@@ -1,0 +1,67 @@
+from Linkedlist import LinkedList
+
+lista1 = LinkedList()
+lista1.addNode("-1")
+lista1.addNode("7")
+lista1.addNode("3")
+lista1.addNode("0")
+lista1.addNode("7")
+lista1.sort()
+print("Lista1")
+print(lista1)
+
+lista2 = LinkedList()
+lista2.addNode("3")
+lista2.addNode("2")
+lista2.addNode("0")
+lista2.addNode("10")
+lista1.eliminar_comun(lista2)
+lista2.sort()
+lista1.diferentes(lista2)
+print("Lista2")
+print(lista2)
+lista2.invertir()
+print("invertida")
+print(lista2)
+
+lista3 = LinkedList()
+lista3.addNode("-1")
+lista3.addNode("0")
+lista3.addNode("2")
+lista3.special()
+print(lista3)
+
+lista1.addNode("0")
+lista1.addNode("0")
+print(lista1)
+print("No repetidos ",lista1.n_norepetidos())
+
+pos = LinkedList()
+neg = LinkedList()
+lista1.addNode("-64")
+print("Positivos y negativos")
+lista1.pos_neg(neg, pos)
+
+A = LinkedList()
+B = LinkedList()
+A.addNode("9")
+A.addNode("8")
+B.addNode("8")
+B.addNode("9")
+AuB = A.reverse_comun(B)
+print("Comunes descententemente")
+print(AuB)
+A.addNode("-5")
+B.addNode("40")
+if(A.son_iguales(B)):
+    print("Iguales")
+else:
+    print("No iguales")
+
+    
+print("A")
+print(A)
+A.DeleteK(2)
+print(A)
+print(A.ULT)
+
