@@ -74,6 +74,14 @@ public class Test_LinkedL {
         lista5.InsertNode("8", 2);
         lista5.Escribir_lista();
         System.out.println("PTR "+lista5.PTR+" ULT "+lista5.ULT);
+
+        System.out.println("Sorting cambiando enlaces (Pesadilla)");
+        
+        lista5.AddNode("-2");
+        lista5.AddNode("-1");
+        lista5.Escribir_lista();
+        lista5.sort_enlaces();
+        lista5.Escribir_lista();
         
     }
     

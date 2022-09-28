@@ -489,9 +489,96 @@ public class LinkedList {
                 prev.next = P.next;
                 P.next = null;
                 P = prev.next;
-            }else if(P==null){
+            } else if (P == null) {
                 System.out.println("Posición no en lista");
             }
+        }
+
+    }
+
+    public void sort_enlaces() { // TORTURA 
+        Nodo prev1 = null;
+        Nodo P1 = this.PTR; 
+        Nodo next1 = P1.next;
+        // Se tiene P1 (hasta len-1) que se compara con P2, que va 1 posicion adelante hasta acabar
+        Nodo prev2 = this.PTR;
+        Nodo P2 = this.PTR.next;
+        Nodo next2 = P2.next;
+        // prev y next son para intercambiar conecciones para cambiar a P1 con P2 cuando sea el caso
+        while (!P1.data.equals(this.ULT.data)) { // Ordenar vector
+            while (P2 != null) {
+                //System.out.println("P1 "+P1.data+" P2 "+P2.data);
+                if (Integer.parseInt(P1.data) > Integer.parseInt(P2.data)) {
+                    if (next1 != P2) {
+                        // next1 es P2 cuando P1 y P2 estan al lado
+                        if (P1 == this.PTR) { // si P1 era PTR ahora lo es P2
+                            this.PTR = P2;
+
+                        } else {
+                            prev1.next = P2;
+                        }
+                        if (P2 == this.ULT) { // caso idem pero para ULT
+                            this.ULT = P1;
+                        }
+                        P2.next = next1;
+                        if(next1.data.equals(prev2.data)){ // reforzar conecciones de next1
+                            next1.next = P1;
+                        }else{
+                            next1.next = next1.next;
+                        }
+                        prev2.next = P1;
+                        P1.next = next2;
+                        if(next2==null){ // reforzar ULT
+                            this.ULT = P1;
+                        }
+
+                    } else { // next1==P2
+
+                        if (P1 == this.PTR) {
+                            this.PTR = P2;
+                        } else {
+                            prev1.next = P2;
+                        }
+                        if(P2 == this.ULT){
+                            this.ULT = P1;
+                        }
+                        P2.next = P1;
+                        P1.next = next2;
+                        if(next2==null){
+                            this.ULT = P1;
+                        }
+                        next1 = P1;
+                        prev2 = P2;
+                    }
+
+                    Nodo temp = new Nodo(P1.data);
+                    // lo que se llamaba P2 ahora es P1 realmente por su posición asi q cambiamos referencia 
+                    P1 = P2;
+                    P2 = temp;
+                }
+                prev2.next = P2;
+                prev2 = P2;
+                P2 = next2;
+                if (P2 != null) {
+                    next2 = next2.next;
+                }
+                // avanzamos en P2 hasta q sea null
+            }
+            
+            prev1 = P1;
+            P1 = P1.next;
+            //System.out.println("P1 es "+P1+" Ult es "+this.ULT);
+
+            if (!P1.data.equals(this.ULT.data)) { // condicional no funcionaba antes
+                next1 = next1.next;
+                prev2 = P1;
+                P2 = P1.next;
+                if(P2!=null){
+                    next2 = P2.next;
+                }
+            }
+            // avanzamos en P1 hasta q sea ULT
+
         }
 
     }
