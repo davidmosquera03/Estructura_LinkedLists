@@ -45,3 +45,8 @@ a.	De manera ordenada (Puede asumir no repetidos)
 b.	Indicando una posición inicial en PTR1 donde después ó antes de esta vamos a insertar todos los elementos de PTR2. 
 6.	Hacer un algoritmo que dadas dos listas enlazadas circulares PTR1 y PTR2, las cuales representan dos polinomios (Puede asumir que ya están ordenados de manera descendente), sume los polinomios dejando la respuesta en PTR1.
 
+Ejercicios Adicionales (En java):
++ ordenamiento burbuja en enlaces de lista enlazada simple :skull:
++ Dadas dos listas enlazadas circulares ya creadas (PTR1, PTR2).
+Hacer un algoritmo que elimine de la lista PTR1, todas las secuencias de
+elementos iguales de las lista PTR2 que se encuentren en PTR1 :brain:
