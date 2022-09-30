@@ -42,6 +42,29 @@ public class LinkedList {
 
     }
 
+    public void DeleteNodePos(int pos) {
+        int posult = this.len()-1;
+        Nodo P = this.PTR; 
+        if (pos == 0) {
+            this.PTR = P.next;
+            P.next = null;
+        } else {
+            for (int i = 0; i < pos - 1; i++) {
+                P = P.next; // posicionarme antes de donde quiero insertar el nodo
+            }
+            
+            Nodo R = P.next; // Nodo a eliminar
+            P.next = R.next; //
+            R.next = null;
+            if (pos == posult) {
+                this.ULT.next = null;
+                this.ULT = P;
+            }
+
+        }
+
+    }
+
     public void InsertAfter(String data, String valor) { // Revisar caso antes de ULT (hecho)
         Nodo P = this.PTR;
         while (P != null && !P.data.equals(data)) {

@@ -72,5 +72,25 @@ public class Circular {
         System.out.println("Opera x con y");
         x.coeficientes(y);
         x.recorrer2();
+
+        System.out.println("Ejercicio Parcial practica");
+        LinkedListC lista0 = new LinkedListC();
+        lista0.AddNode("4");
+        lista0.AddNode("1");
+        lista0.AddNode("9");
+        lista0.AddNode("7");
+        lista0.AddNode("2");
+        lista0.AddNode("1");
+        lista0.AddNode("9");
+        System.out.println("Lista0");
+        lista0.Escribir_lista();
+
+        LinkedListC lista2 = new LinkedListC();
+        lista2.AddNode("1");
+        lista2.AddNode("9");
+        System.out.println("Lista2");
+        lista2.Escribir_lista();
+        lista0.eliminar_lista(lista2);
+        lista0.Escribir_lista();
     }
 }

@@ -1,5 +1,7 @@
 package Java_LinkedLists;
 
+import java.util.ArrayList;
+
 public class LinkedListC {
     Nodo PTR;
     Nodo ULT;
@@ -182,7 +184,94 @@ public class LinkedListC {
             this.ULT = P2;
         }
     }
+    public void DeleteNodePos(int pos) { // Elimina el nodo en pos dada
+        Nodo P = this.PTR; 
+        int posult = this.len()-1; // posicion de ULT
+        if (pos == 0) { // caso PTR el siguiente es ahora PTR y reconecta atrás
+            this.ULT.next = P.next;
+            this.PTR = P.next;
+            P.next = null;
+        } else {
+            for (int i = 0; i < pos - 1; i++) {
+                P = P.next; // posicionarme antes de donde quiero eliminar el nodo
+            }
+            Nodo R = P.next; // R es por eliminar
+            P.next = R.next;  // actual reconecta con next de R
+            R.next = null; // R es desconectado
+            if (pos == posult) { // caso ULT
+                this.ULT.next = null;
+                this.ULT = P;
+                P.next = this.PTR;
+            }
 
+        }
+
+    }
+    public void eliminar_lista(LinkedListC lista2){ // Elimina presencia exacta de lista2 en lista principal
+        ArrayList<Integer> pos = new ArrayList<Integer>();
+        // Arraylist para guardar posiciones de presencia 
+        boolean is_list=false; // Asume que no está lista2
+        Nodo P = this.PTR;
+        Nodo P2 = lista2.PTR;
+        String possible = ""; // Para guardar posiciones antes de comprobar que toda la lista esté
+        int l_pos = 0;  // contador de posición actual en lista principal
+        while(P.next!=this.PTR){
+            if(P.data.equals(P2.data)){
+                if(!is_list){
+                    is_list = true;
+                }
+                possible+=String.valueOf(l_pos)+";";
+                if(P2==lista2.ULT){
+                   String[] data = possible.split(";");
+                    for (int i = 0; i < data.length; i++) {
+                        pos.add(Integer.parseInt(data[i]));
+                    }
+                    possible="";
+                    P2 = lista2.PTR;
+                }else{
+                    P2 = P2.next;
+                }
+            }else{
+                if(is_list){
+                    is_list = false;
+                    possible = "";
+                    P2 = lista2.PTR;
+                }
+                
+            }
+            l_pos++;
+            P = P.next;
+        }
+        if(P.data.equals(P2.data)){ // se repite para ULT de lista principal
+            if(!is_list){
+                is_list = true;
+            }
+            possible+=String.valueOf(l_pos)+";";
+            if(P2==lista2.ULT){
+               String[] data = possible.split(";");
+                for (int i = 0; i < data.length; i++) {
+                    pos.add(Integer.parseInt(data[i]));
+                }
+                possible="";
+                P2 = lista2.PTR;
+            }else{
+                P2 = P2.next;
+            }
+        }else{
+            if(is_list){
+                is_list = false;
+                possible = "";
+                P2 = lista2.PTR;
+            }
+            
+        }
+
+        for (int i =pos.size()-1; i>=0; i--) { 
+            // para no afectar la posición de los demás elementos, se busca desde la ultima 
+            this.DeleteNodePos(pos.get(i));
+            // Elimina el Nodo en esa posición
+        }
+    }
     public void AddNode2(int coef, int expx, int expy, int expz) { // Adicionar Nodo
         Nodo2 P = new Nodo2(coef, expx, expy, expz);
         if (this.PTR2 == null) { // si es el único
@@ -195,6 +284,7 @@ public class LinkedListC {
             this.ULT2.next = this.PTR2;
         }
     }
+
 
     public void recorrer2() {
         Nodo2 P = this.PTR2;
