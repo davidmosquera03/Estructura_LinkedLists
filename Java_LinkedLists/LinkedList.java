@@ -518,7 +518,57 @@ public class LinkedList {
         }
 
     }
+    public int times_data(String data){
+        // recibe data que se busca saber cuantas veces aparece
+        //  devuelve las veces en times
+        Nodo P = this.PTR;
+        int times=0; // inicia en 0
+        while(P!=null){
+            if(P.data.equals(data)){
+                times++; // cada vez que aparece aumenta contador
+            }
+            P = P.next;
+        }
+        return times;
+    }
 
+    public boolean similar(LinkedList lista2){
+        // Recive lista2 con que comparar lista1
+        // devuelve booleano true si son similares, sino false
+        boolean res = true;  // asume que lo son
+        Nodo P1 = this.PTR;
+        String[][] save = new String[this.len()][2]; // MAtriz q NO es VECTOR, guardara valor y veces que repite 
+        System.out.println("Len es "+this.len());
+        int i =0;
+        while(P1!=null){ // recorre lista1
+            int times = 0;
+            times = this.times_data(P1.data);
+            save[i][0] = P1.data; // guarda valor de P actual
+            save[i][1] = String.valueOf(times); // guarda apariciones
+            P1 = P1.next; // avanza en lista
+            i++; // avanza en matriz
+        }
+        for (int j = 0; j < this.len(); j++) {
+            System.out.println("ayuda "+save[j][0]);
+            System.out.println("s "+save[j][1]);
+        }
+        Nodo P2 = lista2.PTR; // primer valor de lista2
+        i =0;
+        while(P2!=null && res){ // recorremos P2 mientras no se acabe y sepamos q son similares 
+            String dato = save[i][0];
+            int oc  = Integer.parseInt(save[i][1]);
+            int oc2 = lista2.times_data(dato);
+            // sacan ocurrencias de dato de lista1 en lista 2 y comparamos
+            System.out.println("dato es "+dato);
+            System.out.println("oc es "+oc+" oc2 es "+oc2);
+            if(oc!=oc2){ // si no es la misma cantidad no son similares
+                res = false;
+            }
+            P2 = P2.next;
+            i++;
+        }
+        return res;
+    }
     public void sort_enlaces() { // TORTURA 
         Nodo prev1 = null;
         Nodo P1 = this.PTR; 

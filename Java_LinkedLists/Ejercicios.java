@@ -85,5 +85,24 @@ public class Ejercicios {
         A.Escribir_lista();
         A.Eliminar_k(3);
         A.Escribir_lista();
+        LinkedList a = new LinkedList();
+        a.AddNode("5");
+        a.AddNode("3");
+        a.AddNode("8");
+        a.AddNode("8");
+        LinkedList b = new LinkedList();
+        b.AddNode("8");
+        b.AddNode("5");
+        b.AddNode("8");
+        b.AddNode("3");
+        System.out.println("Times");
+        int res = b.times_data("8");
+        System.out.println(res);
+        System.out.println("Similares a y b?");
+        if(a.similar(b)){ // Linea 510 de LinkedLISt
+            System.out.println("Similares");
+        }else{
+            System.out.println("NOOO");
+        }
     }
 }

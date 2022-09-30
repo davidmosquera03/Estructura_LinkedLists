@@ -295,57 +295,122 @@ public class LinkedListC {
         System.out.print(P + " - " + P.next + "(PTR2)\n"); // Imprime ULT y muestra PTR
     }
 
-    public void coeficientes(LinkedListC lista2) {
-        Nodo2 prev = this.ULT2;
-        Nodo2 P1 = this.PTR2;
-        Nodo2 P2 = lista2.PTR2;
-        while (P1.next != PTR2) {
-            if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
-                // si exponentes son iguales se suman los coeficientes
-                P1.coef = P1.coef + P2.coef;
-                if (P1.coef == 0) { // se elimina el Nodo si es 0 el coeficiente (0xyz=0)
-                    if (P1 == PTR2) {
-                        this.PTR2 = prev; // Caso especial PTR2
+    public boolean puede_operar(LinkedListC lista2) {
+        // verifica si un polinomio tiene con que operar en otra lsita
+                boolean res = false;//
+                Nodo2 P1 = this.PTR2;
+                Nodo2 P2 = lista2.PTR2;
+                while (P1.next != PTR2) {
+                    if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
+                        res = true;
                     }
-                    prev.next = P1.next;
-                    P1.next = null;
-                    P1 = prev;
-                }
-                prev = P1;
-                P1 = P1.next;
-                P2 = lista2.PTR2;
-                // se pasa al siguiente Nodo en en lista1 y reinicia en lista2
-            } else {
-                P2 = P2.next;
-                // Si no son iguales avanzamos en lista2
-                if (P2 == lista2.PTR2) {
-                    prev = P1;
                     P1 = P1.next;
-                    // Si ya se recorrió la lista2, moverse en lista1
+                    if (P1 == null) {
+                        break;
+                    }
                 }
+                if (P1 != null) {
+                    if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
+                        res = true;
+                    }
+                }
+        
+                return res;
             }
-        }
-        while (P1 != PTR2) { // Para el ULT2
-            if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
-                P1.coef = P1.coef + P2.coef;
-                if (P1.coef == 0) { // se elimina el Nodo si es 0 el coeficiente (0xyz=0)
-                    this.ULT2 = prev; // cambiar ULT2
-                    prev.next = P1.next;
-                    P1.next = null;
-                    P1 = prev;
+        
+            public void coeficientes(LinkedListC lista2) {
+                Nodo2 prev = this.ULT2;
+                Nodo2 prev2 = lista2.ULT2;
+                Nodo2 P1 = this.PTR2;
+                Nodo2 P2 = lista2.PTR2;
+                while (P1.next != PTR2) {
+                    if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
+                        // si exponentes son iguales se suman los coeficientes
+                        P1.coef = P1.coef + P2.coef;
+                        if (P1.coef == 0) { // se elimina el Nodo en AMBAS LISTAS si es 0 el coeficiente (0xyz=0)
+                            if (P1 == PTR2) {
+                                this.PTR2 = prev; // Caso especial PTR2
+                            }
+                            if (P1 == ULT2) {
+                                this.ULT2 = prev;
+                            }
+                            if (P2 == PTR2) {
+                                lista2.PTR2 = prev2;
+                            }
+                            if (P2 == lista2.ULT2) {
+                                lista2.ULT2 = prev;
+                            }
+                            prev2.next = P2.next;
+                            P2.next = null;
+        
+                            prev.next = P1.next;
+                            P1.next = null;
+                            P1 = prev;
+                        }
+                        prev = P1;
+                        P1 = P1.next;
+                        P2 = lista2.PTR2;
+                        prev2 = lista2.ULT2;
+                        // se pasa al siguiente Nodo en en lista1 y reinicia en lista2
+                    } else {
+                        prev2 = P2;
+                        P2 = P2.next;
+                        // Si no son iguales avanzamos en lista2
+                        if (P2 == lista2.PTR2) {
+                            prev = P1;
+                            P1 = P1.next;
+                            // Si ya se recorrió la lista2, moverse en lista1
+                        }
+                    }
                 }
-                prev = P1.next;
-                P1 = P1.next;
+                while (P1 != PTR2) { // Para el ULT2
+                    if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
+                        P1.coef = P1.coef + P2.coef;
+                        if (P1.coef == 0) { // se elimina el Nodo en AMBAS LISTAS si es 0 el coeficiente (0xyz=0)
+                            if (P1 == PTR2) {
+                                this.PTR2 = prev; // Caso especial PTR2
+                            }
+                            if (P1 == ULT2) {
+                                this.ULT2 = prev;
+                            }
+                            if (P2 == PTR2) {
+                                lista2.PTR2 = prev2;
+                            }
+                            if (P2 == lista2.ULT2) {
+                                lista2.ULT2 = prev;
+                            }
+                            prev2.next = P2.next;
+                            P2.next = null;
+        
+                            prev.next = P1.next;
+                            P1.next = null;
+                            P1 = prev;
+                        }
+                        prev = P1.next;
+                        P1 = P1.next;
+                        P2 = lista2.PTR2;
+                    } else {
+                        P2 = P2.next;
+                        if (P2 == lista2.PTR2) {
+                            prev = P1;
+                            P1 = P1.next;
+                        }
+                    }
+                }
+                // añadimos polinomios no operados a PTR1
+                // pues x^2 + x^3 = x^2 + x^3
                 P2 = lista2.PTR2;
-            } else {
-                P2 = P2.next;
-                if (P2 == lista2.PTR2) {
-                    prev = P1;
-                    P1 = P1.next;
+                
+                while (P2.next != lista2.PTR2) {
+                    if (!lista2.puede_operar(this)) {
+                        this.AddNode2(P2.coef, P2.expx, P2.expy, P2.expz);
+                    }
+                    P2 = P2.next;
                 }
+                if (!lista2.puede_operar(this)) {
+                        this.AddNode2(P2.coef, P2.expx, P2.expy, P2.expz);
+                    }
+                
+        
             }
-        }
-
-    }
-
 }
