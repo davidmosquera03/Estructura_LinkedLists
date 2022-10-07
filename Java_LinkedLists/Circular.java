@@ -75,10 +75,10 @@ public class Circular {
 
         System.out.println("Ejercicio Parcial practica");
         LinkedListC lista0 = new LinkedListC();
-        lista0.AddNode("4");
+        lista0.AddNode("1");
         lista0.AddNode("1");
         lista0.AddNode("9");
-        lista0.AddNode("7");
+        lista0.AddNode("9");
         lista0.AddNode("2");
         lista0.AddNode("1");
         lista0.AddNode("9");

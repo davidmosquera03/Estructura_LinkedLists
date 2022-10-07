@@ -184,9 +184,10 @@ public class LinkedListC {
             this.ULT = P2;
         }
     }
+
     public void DeleteNodePos(int pos) { // Elimina el nodo en pos dada
-        Nodo P = this.PTR; 
-        int posult = this.len()-1; // posicion de ULT
+        Nodo P = this.PTR;
+        int posult = this.len() - 1; // posicion de ULT
         if (pos == 0) { // caso PTR el siguiente es ahora PTR y reconecta atrás
             this.ULT.next = P.next;
             this.PTR = P.next;
@@ -196,7 +197,7 @@ public class LinkedListC {
                 P = P.next; // posicionarme antes de donde quiero eliminar el nodo
             }
             Nodo R = P.next; // R es por eliminar
-            P.next = R.next;  // actual reconecta con next de R
+            P.next = R.next; // actual reconecta con next de R
             R.next = null; // R es desconectado
             if (pos == posult) { // caso ULT
                 this.ULT.next = null;
@@ -207,71 +208,89 @@ public class LinkedListC {
         }
 
     }
-    public void eliminar_lista(LinkedListC lista2){ // Elimina presencia exacta de lista2 en lista principal
+
+    public void eliminar_lista(LinkedListC lista2) { // Elimina presencia exacta de lista2 en lista principal
         ArrayList<Integer> pos = new ArrayList<Integer>();
-        // Arraylist para guardar posiciones de presencia 
-        boolean is_list=false; // Asume que no está lista2
+        // Arraylist para guardar posiciones de presencia
+        boolean is_list = false; // Asume que no está lista2
         Nodo P = this.PTR;
         Nodo P2 = lista2.PTR;
         String possible = ""; // Para guardar posiciones antes de comprobar que toda la lista esté
-        int l_pos = 0;  // contador de posición actual en lista principal
-        while(P.next!=this.PTR){
-            if(P.data.equals(P2.data)){
-                if(!is_list){
+        int l_pos = 0; // contador de posición actual en lista principal
+        boolean yet = true;
+        while (yet) {
+            while (P.next != this.PTR) {
+                if (P.data.equals(P2.data)) {
+                    if (!is_list) {
+                        is_list = true;
+                    }
+                    possible += String.valueOf(l_pos) + ";";
+                    if (P2 == lista2.ULT) {
+                        String[] data = possible.split(";");
+                        for (int i = 0; i < data.length; i++) {
+                            pos.add(Integer.parseInt(data[i]));
+                        }
+                        possible = "";
+                        P2 = lista2.PTR;
+                    } else {
+                        P2 = P2.next;
+                    }
+                } else {
+                    if (is_list && !P.data.equals(lista2.PTR.data)) {
+                        is_list = false;
+                        possible = "";
+                        P2 = lista2.PTR;
+                    } else if (is_list && P.data.equals(lista2.PTR.data)) {
+                        possible = String.valueOf(l_pos) + ";";
+                    }
+
+                }
+                l_pos++;
+                P = P.next;
+            }
+            if (P.data.equals(P2.data)) { // se repite para ULT de lista principal
+                if (!is_list) {
                     is_list = true;
                 }
-                possible+=String.valueOf(l_pos)+";";
-                if(P2==lista2.ULT){
-                   String[] data = possible.split(";");
+                possible += String.valueOf(l_pos) + ";";
+                if (P2 == lista2.ULT) {
+                    String[] data = possible.split(";");
                     for (int i = 0; i < data.length; i++) {
                         pos.add(Integer.parseInt(data[i]));
                     }
-                    possible="";
+                    possible = "";
                     P2 = lista2.PTR;
-                }else{
+                } else {
                     P2 = P2.next;
                 }
-            }else{
-                if(is_list){
+            } else {
+                if (is_list) {
                     is_list = false;
                     possible = "";
                     P2 = lista2.PTR;
+                } else if (is_list && P.data.equals(lista2.PTR.data)) {
+                    possible = String.valueOf(l_pos) + ";";
                 }
-                
-            }
-            l_pos++;
-            P = P.next;
-        }
-        if(P.data.equals(P2.data)){ // se repite para ULT de lista principal
-            if(!is_list){
-                is_list = true;
-            }
-            possible+=String.valueOf(l_pos)+";";
-            if(P2==lista2.ULT){
-               String[] data = possible.split(";");
-                for (int i = 0; i < data.length; i++) {
-                    pos.add(Integer.parseInt(data[i]));
-                }
-                possible="";
-                P2 = lista2.PTR;
-            }else{
-                P2 = P2.next;
-            }
-        }else{
-            if(is_list){
-                is_list = false;
-                possible = "";
-                P2 = lista2.PTR;
-            }
-            
-        }
 
-        for (int i =pos.size()-1; i>=0; i--) { 
-            // para no afectar la posición de los demás elementos, se busca desde la ultima 
-            this.DeleteNodePos(pos.get(i));
-            // Elimina el Nodo en esa posición
+            }
+
+            for (int i = pos.size() - 1; i >= 0; i--) {
+                // para no afectar la posición de los demás elementos, se busca desde la ultima
+                this.DeleteNodePos(pos.get(i));
+                // Elimina el Nodo en esa posición
+            }
+            System.out.println("Pos size "+pos.size());
+            if(pos.size()==0){
+                yet =false;
+            }
+            pos.clear();
+            P = this.PTR;
+            P2 = lista2.PTR;
+            possible = ""; // Para guardar posiciones antes de comprobar que toda la lista esté
+            l_pos = 0;
         }
     }
+
     public void AddNode2(int coef, int expx, int expy, int expz) { // Adicionar Nodo
         Nodo2 P = new Nodo2(coef, expx, expy, expz);
         if (this.PTR2 == null) { // si es el único
@@ -285,7 +304,6 @@ public class LinkedListC {
         }
     }
 
-
     public void recorrer2() {
         Nodo2 P = this.PTR2;
         while (P.next != PTR2) {
@@ -297,120 +315,119 @@ public class LinkedListC {
 
     public boolean puede_operar(LinkedListC lista2) {
         // verifica si un polinomio tiene con que operar en otra lsita
-                boolean res = false;//
-                Nodo2 P1 = this.PTR2;
-                Nodo2 P2 = lista2.PTR2;
-                while (P1.next != PTR2) {
-                    if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
-                        res = true;
-                    }
-                    P1 = P1.next;
-                    if (P1 == null) {
-                        break;
-                    }
-                }
-                if (P1 != null) {
-                    if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
-                        res = true;
-                    }
-                }
-        
-                return res;
+        boolean res = false;//
+        Nodo2 P1 = this.PTR2;
+        Nodo2 P2 = lista2.PTR2;
+        while (P1.next != PTR2) {
+            if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
+                res = true;
             }
-        
-            public void coeficientes(LinkedListC lista2) {
-                Nodo2 prev = this.ULT2;
-                Nodo2 prev2 = lista2.ULT2;
-                Nodo2 P1 = this.PTR2;
-                Nodo2 P2 = lista2.PTR2;
-                while (P1.next != PTR2) {
-                    if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
-                        // si exponentes son iguales se suman los coeficientes
-                        P1.coef = P1.coef + P2.coef;
-                        if (P1.coef == 0) { // se elimina el Nodo en AMBAS LISTAS si es 0 el coeficiente (0xyz=0)
-                            if (P1 == PTR2) {
-                                this.PTR2 = prev; // Caso especial PTR2
-                            }
-                            if (P1 == ULT2) {
-                                this.ULT2 = prev;
-                            }
-                            if (P2 == PTR2) {
-                                lista2.PTR2 = prev2;
-                            }
-                            if (P2 == lista2.ULT2) {
-                                lista2.ULT2 = prev;
-                            }
-                            prev2.next = P2.next;
-                            P2.next = null;
-        
-                            prev.next = P1.next;
-                            P1.next = null;
-                            P1 = prev;
-                        }
-                        prev = P1;
-                        P1 = P1.next;
-                        P2 = lista2.PTR2;
-                        prev2 = lista2.ULT2;
-                        // se pasa al siguiente Nodo en en lista1 y reinicia en lista2
-                    } else {
-                        prev2 = P2;
-                        P2 = P2.next;
-                        // Si no son iguales avanzamos en lista2
-                        if (P2 == lista2.PTR2) {
-                            prev = P1;
-                            P1 = P1.next;
-                            // Si ya se recorrió la lista2, moverse en lista1
-                        }
+            P1 = P1.next;
+            if (P1 == null) {
+                break;
+            }
+        }
+        if (P1 != null) {
+            if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
+                res = true;
+            }
+        }
+
+        return res;
+    }
+
+    public void coeficientes(LinkedListC lista2) {
+        Nodo2 prev = this.ULT2;
+        Nodo2 prev2 = lista2.ULT2;
+        Nodo2 P1 = this.PTR2;
+        Nodo2 P2 = lista2.PTR2;
+        while (P1.next != PTR2) {
+            if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
+                // si exponentes son iguales se suman los coeficientes
+                P1.coef = P1.coef + P2.coef;
+                if (P1.coef == 0) { // se elimina el Nodo en AMBAS LISTAS si es 0 el coeficiente (0xyz=0)
+                    if (P1 == PTR2) {
+                        this.PTR2 = prev; // Caso especial PTR2
                     }
-                }
-                while (P1 != PTR2) { // Para el ULT2
-                    if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
-                        P1.coef = P1.coef + P2.coef;
-                        if (P1.coef == 0) { // se elimina el Nodo en AMBAS LISTAS si es 0 el coeficiente (0xyz=0)
-                            if (P1 == PTR2) {
-                                this.PTR2 = prev; // Caso especial PTR2
-                            }
-                            if (P1 == ULT2) {
-                                this.ULT2 = prev;
-                            }
-                            if (P2 == PTR2) {
-                                lista2.PTR2 = prev2;
-                            }
-                            if (P2 == lista2.ULT2) {
-                                lista2.ULT2 = prev;
-                            }
-                            prev2.next = P2.next;
-                            P2.next = null;
-        
-                            prev.next = P1.next;
-                            P1.next = null;
-                            P1 = prev;
-                        }
-                        prev = P1.next;
-                        P1 = P1.next;
-                        P2 = lista2.PTR2;
-                    } else {
-                        P2 = P2.next;
-                        if (P2 == lista2.PTR2) {
-                            prev = P1;
-                            P1 = P1.next;
-                        }
+                    if (P1 == ULT2) {
+                        this.ULT2 = prev;
                     }
+                    if (P2 == PTR2) {
+                        lista2.PTR2 = prev2;
+                    }
+                    if (P2 == lista2.ULT2) {
+                        lista2.ULT2 = prev;
+                    }
+                    prev2.next = P2.next;
+                    P2.next = null;
+
+                    prev.next = P1.next;
+                    P1.next = null;
+                    P1 = prev;
                 }
-                // añadimos polinomios no operados a PTR1
-                // pues x^2 + x^3 = x^2 + x^3
+                prev = P1;
+                P1 = P1.next;
                 P2 = lista2.PTR2;
-                
-                while (P2.next != lista2.PTR2) {
-                    if (!lista2.puede_operar(this)) {
-                        this.AddNode2(P2.coef, P2.expx, P2.expy, P2.expz);
-                    }
-                    P2 = P2.next;
+                prev2 = lista2.ULT2;
+                // se pasa al siguiente Nodo en en lista1 y reinicia en lista2
+            } else {
+                prev2 = P2;
+                P2 = P2.next;
+                // Si no son iguales avanzamos en lista2
+                if (P2 == lista2.PTR2) {
+                    prev = P1;
+                    P1 = P1.next;
+                    // Si ya se recorrió la lista2, moverse en lista1
                 }
-                if (!lista2.puede_operar(this)) {
-                        this.AddNode2(P2.coef, P2.expx, P2.expy, P2.expz);
-                    }
-                
-        
             }
+        }
+        while (P1 != PTR2) { // Para el ULT2
+            if (P1.expx == P2.expx && P1.expy == P2.expy && P1.expz == P2.expz) {
+                P1.coef = P1.coef + P2.coef;
+                if (P1.coef == 0) { // se elimina el Nodo en AMBAS LISTAS si es 0 el coeficiente (0xyz=0)
+                    if (P1 == PTR2) {
+                        this.PTR2 = prev; // Caso especial PTR2
+                    }
+                    if (P1 == ULT2) {
+                        this.ULT2 = prev;
+                    }
+                    if (P2 == PTR2) {
+                        lista2.PTR2 = prev2;
+                    }
+                    if (P2 == lista2.ULT2) {
+                        lista2.ULT2 = prev;
+                    }
+                    prev2.next = P2.next;
+                    P2.next = null;
+
+                    prev.next = P1.next;
+                    P1.next = null;
+                    P1 = prev;
+                }
+                prev = P1.next;
+                P1 = P1.next;
+                P2 = lista2.PTR2;
+            } else {
+                P2 = P2.next;
+                if (P2 == lista2.PTR2) {
+                    prev = P1;
+                    P1 = P1.next;
+                }
+            }
+        }
+        // añadimos polinomios no operados a PTR1
+        // pues x^2 + x^3 = x^2 + x^3
+        P2 = lista2.PTR2;
+
+        while (P2.next != lista2.PTR2) {
+            if (!lista2.puede_operar(this)) {
+                this.AddNode2(P2.coef, P2.expx, P2.expy, P2.expz);
+            }
+            P2 = P2.next;
+        }
+        if (!lista2.puede_operar(this)) {
+            this.AddNode2(P2.coef, P2.expx, P2.expy, P2.expz);
+        }
+
+    }
 }
