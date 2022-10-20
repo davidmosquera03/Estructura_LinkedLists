@@ -19,7 +19,6 @@ class LinkedList:
     def DeleteNode(self, data):
         """
         Deletes instance of Node with data
-        replaces PTR but not ULT
         """
         if (self.PTR == None):
             print("Empty list")

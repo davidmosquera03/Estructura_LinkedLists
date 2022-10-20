@@ -13,7 +13,7 @@
 ### Listas simples  :arrow_right:
  1.	Dadas dos listas simples enlazadas ya creadas cuyos inicios son PTR1 y PTR2, hacer un algoritmo que elimine de la lista PTR1 los elementos en común entre las dos listas. Nota: No se puede asumir que las listas están ordenadas.  
 
-2.	Hacer un algoritmo que escriba el número total de elementos diferentes en una lista enlazada ya creada. ¿Cuáles son? 
+2.	Hacer un algoritmo que escriba el número total de elementos diferentes en una lista enlazada ya creada con respecto a otra*¿Cuáles son? 
 
 3.	Hacer un algoritmo que dada una lista simple enlazada ya creada, invierta su sentido. (no puede cambiar la información, solo los enlaces). 
 
