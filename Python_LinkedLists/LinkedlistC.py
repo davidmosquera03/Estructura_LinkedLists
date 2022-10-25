@@ -18,29 +18,35 @@ class LinkedlistC:
             self.ULT = P
             self.ULT.next = self.PTR
 
-    def delete(self, data: str):
-        """
-        Elimina cualquier nodo con data
-        """
-        prev: Nodo = self.ULT
-        P: Nodo = self.PTR
-        while(self.PTR.data==data):
-            prev.next = P.next
-            self.PTR = P.next
-            P.next = None
-            P = self.PTR
-        prev = P
-        P = P.next
-        while P!=self.PTR:
-            while P!=self.PTR and P.data!=data:
-                prev = P
-                P = P.next
-                if P!=self.PTR and P.data==data:
-                    if P==self.ULT:
-                        self.ULT = prev
-                    prev.next = P.next
-                    P.next = None
-                    P = prev.next
+    def delete(self,data):
+        if (self.PTR == None):
+            print("Empty list")
+        anteP = self.ULT
+        P = self.PTR
+        while(P != self.ULT):
+            if (self.PTR.data == data):
+                self.PTR = P.next
+                del P
+                P = self.PTR
+                self.ULT.next = P
+            else:
+                while(P != self.ULT and P.data != data):
+                    anteP = P
+                    P = P.next
+                if (P != self.ULT and P.data == data):
+                    anteP.next = P.next
+                    del P
+                    P = anteP.next
+        
+        if self.ULT.data == data:
+            if self.ULT == self.PTR:
+                print("AA")
+                self.PTR = self.ULT = None
+            else:
+                self.ULT = anteP
+                del P
+                self.ULT.next = self.PTR
+        
 
     def insert_before(self, data: str, valor: str):
         P = self.PTR
@@ -180,6 +186,8 @@ class LinkedlistC:
     def __repr__(self) -> str:
         res = ""
         P = self.PTR
+        if P is None:
+            return "None"
         while P.next!=self.PTR:
             res+=str(P.data)+"->"
             P = P.next

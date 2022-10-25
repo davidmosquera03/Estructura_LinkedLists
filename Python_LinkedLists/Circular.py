@@ -1,18 +1,17 @@
 from LinkedlistC import LinkedlistC
 
 a = LinkedlistC()
-a.addNode("5")
-a.addNode("-8")
+a.addNode("3")
 a.addNode("4")
-print("A")
+a.addNode("5")
+a.addNode("1")
 print(a)
-print("Borrar 4")
-a.delete("4")
+a.delete("1")
 print(a)
+
 print("Insertar 10 antes de 5")
 a.insert_before("5","10")
 print(a)
-
 b = LinkedlistC()
 b.addNode("80")
 b.addNode("-3")
@@ -48,3 +47,4 @@ y.recorrer2()
 print("X ")
 x.coeficientes(y)
 x.recorrer2()
+

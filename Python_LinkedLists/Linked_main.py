@@ -65,3 +65,10 @@ A.DeleteK(2)
 print(A)
 print(A.ULT)
 
+print("TEST")
+x = LinkedList()
+x.addNode("1")
+x.addNode("1")
+x.DeleteNode("1")
+print(x)
+

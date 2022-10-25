@@ -92,5 +92,13 @@ public class Circular {
         lista2.Escribir_lista();
         lista0.eliminar_lista(lista2);
         lista0.Escribir_lista();
+
+        System.out.println("Eliminar toda la lista igual a un valor");
+        LinkedListC n = new LinkedListC();
+        n.AddNode("1");
+        n.AddNode("1");
+        n.Escribir_lista();
+        n.EliminarNodo("1");
+        n.Escribir_lista();
     }
 }

@@ -2,9 +2,10 @@ class Nodo:
     def __init__(self, data) -> None:
         self.data = data
         self.next = None
+    
     def __repr__(self) -> str:
         return f"{self.data}"
-
+    
 class Nodo2:
     def __init__(self, coef: int, expx: int, expy: int, expz: int) -> None:
         """

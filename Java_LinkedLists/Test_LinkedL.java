@@ -83,6 +83,13 @@ public class Test_LinkedL {
         lista5.sort_enlaces();
         lista5.Escribir_lista();
         
+        System.out.println("Eliminar toda la lista igual a un valor");
+        LinkedList x = new LinkedList();
+        x.AddNode("1");
+        x.AddNode("1");
+        x.Escribir_lista();
+        x.EliminarNodo("1");
+        x.Escribir_lista();
     }
     
 }
