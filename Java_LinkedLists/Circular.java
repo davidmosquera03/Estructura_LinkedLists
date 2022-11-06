@@ -97,8 +97,10 @@ public class Circular {
         LinkedListC n = new LinkedListC();
         n.AddNode("1");
         n.AddNode("1");
+        n.AddNode("3");
+        n.AddNode("1");
         n.Escribir_lista();
-        n.EliminarNodo("1");
+        n.eliminar("1");
         n.Escribir_lista();
     }
 }

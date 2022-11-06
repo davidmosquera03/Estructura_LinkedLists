@@ -29,12 +29,17 @@ public class LinkedListC {
     }
 
     public void Escribir_lista() { // imprime cada valor del Nodo
-        Nodo P = this.PTR;
+        if(this.PTR == null){
+            System.out.println("Null");
+        }else{
+            Nodo P = this.PTR;
         while (P.next != PTR) {
             System.out.print(P.data + " - ");
             P = P.next;
         }
         System.out.print(P.data + " - " + P.next + "(PTR)\n"); // Imprime ULT y muestra PTR
+        }
+        
     }
 
     public void EliminarNodo(String data) {
@@ -64,7 +69,37 @@ public class LinkedListC {
         }
 
     }
-
+    public void eliminar(String data){
+        Nodo prev = this.ULT;
+        Nodo P = this.PTR;
+        while(P!=this.ULT){
+            if(this.PTR.data.equals(data)){
+                this.PTR = P.next;
+                P.next = null;
+                P = this.PTR;
+                this.ULT.next = P;
+            }else{
+                while(P!=this.ULT && !P.data.equals(data)){
+                    prev = P;
+                    P = P.next;
+                }
+                if(P!=this.ULT && P.data.equals(data)){
+                    prev.next = P.next;
+                    P.next = null;
+                    P = prev.next;
+                }
+            }
+        }
+        if(this.ULT.data.equals(data)){
+            if(this.PTR == this.ULT){
+                this.PTR = this.ULT = null;
+            }else{
+                this.ULT = prev;
+                P.next = null;
+                this.ULT.next = this.PTR;
+            }
+        }
+    }
     public void InsertBefore(String data, String valor) { // Revisar caso antes de PTR
         Nodo P = this.PTR;
         if (P.data.equals(data)) {

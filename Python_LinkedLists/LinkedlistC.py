@@ -40,7 +40,6 @@ class LinkedlistC:
         
         if self.ULT.data == data:
             if self.ULT == self.PTR:
-                print("AA")
                 self.PTR = self.ULT = None
             else:
                 self.ULT = anteP
